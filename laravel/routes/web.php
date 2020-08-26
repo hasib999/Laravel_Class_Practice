@@ -22,3 +22,4 @@ Route::get('/home/edit/{id}', 'HomeController@edit');
 Route::post('/home/edit/{id}', 'HomeController@update');
 Route::get('/home/delete/{id}', 'HomeController@delete');
 Route::post('/home/delete/{id}', 'HomeController@destroy');
+Route::get('/home/details/{id}','HomeController@details');

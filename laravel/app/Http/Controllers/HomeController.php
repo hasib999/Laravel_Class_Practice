@@ -28,7 +28,6 @@ class HomeController extends Controller
     	$users = $this->getStudentList();
 		return view('home.index')->with('users', $users);
     }
-
     function edit($id){
 
 		$users = $this->getStudentList();
@@ -42,7 +41,9 @@ class HomeController extends Controller
     	$newUser = ['id'=>$id, 'name'=>$request->name,'email'=>$request->email, 'password'=>$request->password];
 
     	$users = $this->getStudentList();
-    	
+		
+		$key=$this->search($users,'id',$id);
+		$users[$key]=$newUser;
 
     	return view('home.index')->with('users', $users);
 
@@ -51,8 +52,7 @@ class HomeController extends Controller
     function delete($id){
 
     	$users = $this->getStudentList();
-    	//show comfirm view
-
+    	$user=$users[$this->search($users,'id',$id)];
     	return view('home.delete')->with('user', $user);
 
     }
@@ -60,11 +60,17 @@ class HomeController extends Controller
     function destroy($id, Request $request){
     	
     	$users = $this->getStudentList();
-    	//find student by id & delete
-    	//updated list
-
+		$key=$this->search($users,'id',$id);
+		unset($users[$key]);
+		
     	return view('home.index')->with('users', $users);
-    }
+	}
+	function details($id)
+	{
+		$users=$this->getStudentList();
+		$user=$users[$this->search($users,'id',$id)];
+		return view('home.details')->with('user',$user);
+	}
 
 
     function getStudentList(){
