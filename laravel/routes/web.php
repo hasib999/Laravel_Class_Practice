@@ -12,16 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    echo "Hello";
-});
-
-
-Route::get('/welcome', function(){
-	return view('test');
-});
-
+Route::get('/', 'LoginController@index');
 
 Route::get('/login', 'LoginController@index');
 Route::post('/login', ['uses'=>'LoginController@validation']);

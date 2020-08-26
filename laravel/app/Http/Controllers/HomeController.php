@@ -31,12 +31,9 @@ class HomeController extends Controller
 
     function edit($id){
 
-    	$users = $this->getStudentList();
-
-    	//find one student by ID from array
-
-    	$user = ['id'=>'2', 'name'=>'abc','email'=>'abc@aiub.com', 'password'=>'456'];
-    	return view('home.edit')->with('user', $user);
+		$users = $this->getStudentList();
+		$user= $users[$this->search($users,'id',$id)];
+		return view('home.edit')->with('user',$user);
 
     }
 
@@ -46,8 +43,6 @@ class HomeController extends Controller
 
     	$users = $this->getStudentList();
     	
-    	//find one student by ID from array $& replace it's value
-		//updated list
 
     	return view('home.index')->with('users', $users);
 
@@ -78,5 +73,16 @@ class HomeController extends Controller
 	    			['id'=>'2', 'name'=>'abc','email'=>'abc@aiub.com', 'password'=>'456'],
 	    			['id'=>'3', 'name'=>'xyz','email'=>'xyz@gmail.com', 'password'=>'789']
 				];
-    }
+	}
+	function search($array,$field,$search)
+	{
+		foreach($array as $key => $value)
+		{
+			if($value[$field]===$search)
+			{
+				return $key;
+			}
+		}
+		return false;
+	}
 }
