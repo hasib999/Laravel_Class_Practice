@@ -15,7 +15,11 @@ class LoginController extends Controller
     function validation(Request $request){
     	
     	if($request->username == $request->password){
+
     		return redirect('/home');
-    	}
+        }
+        else{
+            return redirect('/login');
+        }
     }
 }
